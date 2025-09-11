@@ -39,7 +39,7 @@ def main():
         mmu = RandMMU(frames)
     elif replacement_mode == "lru":
         mmu = LruMMU(frames)
-    elif replacement_mode == "esc":
+    elif replacement_mode == "clock":
         mmu = ClockMMU(frames)
     else:
         print("Invalid replacement mode. Valid options are [rand, lru, esc]")
@@ -86,7 +86,8 @@ def main():
     print(f"events in trace: {no_events}")
     print(f"total disk reads: {mmu.get_total_disk_reads()}")
     print(f"total disk writes: {mmu.get_total_disk_writes()}")
-    print(f"page fault rate: {mmu.get_total_page_faults() / frames}")
+    print("page fault rate: ", end="")
+    print("{0:.4f}".format(mmu.get_total_page_faults() / no_events))
 
 if __name__ == "__main__":
     main()
