@@ -141,11 +141,10 @@ class LruMMU(MMU):
         """
         Find the Least Recently Used frame to replace
         
-        WHY THIS HELPER METHOD EXISTS:
         The LRU replacement algorithm requires finding the frame with the oldest
         access time. This operation deserves its own method for several reasons:
         
-        BENEFITS OF SEPARATION:
+        REASON FOR SEPARATION:
         1. Single Responsibility: This method has one job - find the LRU frame
         2. Testability: We can unit test the LRU logic independently
         3. Algorithm Clarity: The LRU selection logic is clearly separated from
