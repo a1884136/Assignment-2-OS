@@ -45,7 +45,8 @@ class RandMMU(MMU):
     def get_total_page_faults(self):
         # TODO: Implement the method to get total page faults
         return self._page_faults 
-    
+
+    #handles a single access shared by read or write and loads dirty as needed and if it is a write it marks it dirty to know it needs a write back later
     def _access(self, page, is_write):
         idx = self.page_to_frame.get(page)
         if idx is not None:
@@ -70,7 +71,8 @@ class RandMMU(MMU):
         self.page_to_frame[page] = idx
         if is_write and self.frames[idx] is not None:
             self.frames[idx]["dirty"] = True
-
+    
+    #picks a random resident frame for eviction for the Rand policy
     def _choose_victim(self):
         if self.num_frames <= 1:
             return 0
@@ -79,6 +81,7 @@ class RandMMU(MMU):
             idx = random.randrange(0, self.num_frames)
         return idx
     
+    # evicts a frame and updates counters/mappings and writes back if dirty
     def _evict(self, idx):
         entry = self.frames[idx]
         if entry is None:
