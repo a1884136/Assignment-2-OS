@@ -1,6 +1,6 @@
-#!/usr/bin/env python3
 """
 Simple test script for LRU implementation only
+Save this as 'lru_test.py' in your project directory
 """
 
 import subprocess
@@ -114,7 +114,8 @@ def main():
         
         # Offer to run debug mode for failed test
         print("\nWould you like to see debug output for trace1 with 4 frames? (y/n)")
-        if input().lower().startswith('y'):
+        response = input().lower()
+        if response.startswith('y'):
             test_with_debug('trace1', 4)
     else:
         print("❌ All LRU tests failed")
