@@ -141,11 +141,10 @@ class LruMMU(MMU):
         """
         Find the Least Recently Used frame to replace
         
-        WHY THIS HELPER METHOD EXISTS:
         The LRU replacement algorithm requires finding the frame with the oldest
         access time. This operation deserves its own method for several reasons:
         
-        BENEFITS OF SEPARATION:
+        REASON FOR SEPARATION:
         1. Single Responsibility: This method has one job - find the LRU frame
         2. Testability: We can unit test the LRU logic independently
         3. Algorithm Clarity: The LRU selection logic is clearly separated from
@@ -153,12 +152,6 @@ class LruMMU(MMU):
         4. Future Flexibility: Easy to optimize (e.g., use heap) without changing
            the page fault handling code
         5. Debugging: Can add specific debug output for LRU decisions here
-        
-        ALTERNATIVE APPROACHES CONSIDERED:
-        - Could inline this logic in _handle_page_fault(), but that would mix
-          the "find victim" concern with the "handle fault" concern
-        - Could use a more complex data structure like a heap, but simple linear
-          search is fine for typical frame counts (usually < 100)
           
         Returns:
             int: Frame index containing the least recently used page
